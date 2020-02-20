@@ -12,6 +12,6 @@ public class HeartBeat {
 
 	@GetMapping
 	public String getBeat() {
-		return "Server is alive at " + new Date().toString();	
+		return "Server is alive at  our end " + new Date().toString();	
 	}
 }
