@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.psych.game.models.Game;
 import com.psych.game.models.Player;
 import com.psych.game.models.Question;
+import com.psych.game.models.User;
 import com.psych.game.repository.GameRepo;
 import com.psych.game.repository.PlayerRepo;
 import com.psych.game.repository.QuestionRepo;
+import com.psych.game.repository.UserRepo;
 
 @RestController
 public class EndPoints {
@@ -27,7 +29,8 @@ public class EndPoints {
 	public GameRepo gameRepo;
 	
 	
-	
+	@Autowired
+	public UserRepo userRepo;
 	
 	
 	@GetMapping("/player")
@@ -52,6 +55,11 @@ public class EndPoints {
 		return gameRepo.findAll();
 	}
 	
+
+	@GetMapping("allUser")
+	public List<User> getRepo() {
+		return userRepo.findAll();
+	}
 	@GetMapping("getQuestion/{id}")
 	public Optional<Question> getQuestion(@PathVariable("id") Long id) {
 		return questionRepol.findById(id);
