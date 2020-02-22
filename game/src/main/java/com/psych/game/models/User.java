@@ -11,8 +11,11 @@ import javax.persistence.ManyToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+import lombok.Data;
+
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+@Data
 public abstract class User extends BaseModel {
 	
 	@Email

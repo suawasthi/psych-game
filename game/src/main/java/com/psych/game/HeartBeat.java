@@ -22,9 +22,7 @@ public class HeartBeat {
 
 	@GetMapping
 	public String getBeat() {
-		Player player = new Player();
-		player.setAlias("suraj");
-		player.setPicUrl("sdasda");
+		Player player = new Player.Builder().setAlias("suraj").setEmail("suawasthi@gmail.com").setPicUrl("https://www.google.com/url?sa=i&url=https%3A%2F%2Fpeople.ucsc.edu%2F~jyan102%2F&psig=AOvVaw27qp7OiToVaFDZNCA-8MHZ&ust=1582430039137000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCPCxi7ah5OcCFQAAAAAdAAAAABAE").setPsychFaceURL("https://www.google.com/url?sa=i&url=https%3A%2F%2Fpeople.ucsc.edu%2F~jyan102%2F&psig=AOvVaw27qp7OiToVaFDZNCA-8MHZ&ust=1582430039137000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCPCxi7ah5OcCFQAAAAAdAAAAABAE").setSaltedPassword("salted").build();
 		playerRepo.save(player);
 		return "Server is alive at  our end " + new Date().toString();
 	}
