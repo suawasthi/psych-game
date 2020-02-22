@@ -17,15 +17,20 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
+@JsonIdentityInfo(
+		generator=ObjectIdGenerators.StringIdGenerator.class, 
+		property="id"
+)
 public abstract class BaseModel implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-
 	@Id
-	@GeneratedValue(generator = "PLY_SEQ", strategy = GenerationType.SEQUENCE)
-	@SequenceGenerator(name = "PLY_SEQ", allocationSize = 10)
+	@GeneratedValue(generator = "sequence", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "sequence", allocationSize = 10)
 	private Long id;
 
 	@CreatedDate

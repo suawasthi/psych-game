@@ -13,15 +13,23 @@ import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.URL;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "Players")
-@Data
+@Getter @Setter
 public class Player extends User {
 
 	private static final long serialVersionUID = 1L;
 
+	public Player() {
+		// TODO Auto-generated constructor stub
+	}
 	@NotBlank
 	private String alias;
 
@@ -32,8 +40,10 @@ public class Player extends User {
 	private String psychFaceURL;
 
 	@OneToOne(cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private Stats stats = new Stats();
-
+	
+	@JsonIdentityReference
 	@ManyToMany(mappedBy = "players")
 	private Set<Game> games = new HashSet<Game>();
 
