@@ -22,7 +22,6 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "Players")
-@Getter @Setter
 public class Player extends User {
 
 	private static final long serialVersionUID = 1L;
@@ -30,21 +29,38 @@ public class Player extends User {
 	public Player() {
 		// TODO Auto-generated constructor stub
 	}
+
 	@NotBlank
+	@Getter
+	@Setter
 	private String alias;
 
-	@URL
-	private String picUrl;
+	public Game currentGame;
 
 	@URL
+	@Getter
+	@Setter
+	private String picUrl;
+
+	public void setCurrentGame(Game currentGame) {
+		this.currentGame = currentGame;
+	}
+
+	@URL
+	@Getter
+	@Setter
 	private String psychFaceURL;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JsonManagedReference
+	@Getter
+	@Setter
 	private Stats stats = new Stats();
-	
+
 	@JsonIdentityReference
 	@ManyToMany(mappedBy = "players")
+	@Getter
+	@Setter
 	private Set<Game> games = new HashSet<Game>();
 
 	private Player(Builder builder) {
@@ -95,6 +111,11 @@ public class Player extends User {
 			return new Player(this);
 
 		}
+
+	}
+
+	public Game getCurrentGame() {
+		return currentGame;
 
 	}
 }

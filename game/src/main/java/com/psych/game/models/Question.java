@@ -22,7 +22,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @Builder
-
 public class Question extends BaseModel {
 	/**
 	 * 

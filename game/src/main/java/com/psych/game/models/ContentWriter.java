@@ -11,9 +11,9 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
 
 @Entity
 @Table(name = "ContentWritters")
