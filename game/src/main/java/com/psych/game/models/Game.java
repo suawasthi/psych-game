@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -17,9 +18,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
+import com.psych.game.repository.QuestionRepo;
+import com.psych.game.util.QuestionUtil;
 
 import Execption.InvalidGameActionExecption;
 import lombok.AllArgsConstructor;
@@ -40,10 +45,15 @@ public class Game extends BaseModel {
 		this.leader = leader;
 		this.noOfGames = round;
 		this.hasEallen = hasEllen;
-		//leader.currentGame = this;
+		leader.setCurrentGame(this);
 		this.players = new HashSet<Player>();
 		this.players.add(leader);
-		
+
+		Random rand = new Random();
+
+		int rand_int1 = rand.nextInt(1000);
+		this.inviteCode = String.valueOf(rand_int1);
+
 	}
 
 	private static final long serialVersionUID = 1L;
@@ -51,7 +61,9 @@ public class Game extends BaseModel {
 	public Game() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
+	String inviteCode;
+
 	@JsonIdentityReference
 	@ManyToMany
 	@Builder.Default
@@ -117,11 +129,14 @@ public class Game extends BaseModel {
 
 	private void startNewRound() {
 		gameStatus = GameStatus.SUBMITING_ANSWER;
-		Question question = new Question();
+		Question question = QuestionUtil.getRandomQuestion();
+		if (rounds == null) {
+			rounds = new ArrayList<Round>();
+		}
 		Round round = new Round(this, question, rounds.size() + 1);
 		rounds.add(round);
 		if (hasEallen) {
-			//round.setEllenAnswer(EllenUtil.getRandomAnswer(question));
+			// round.setEllenAnswer(EllenUtil.getRandomAnswer(question));
 		}
 
 		rounds.add(round);
