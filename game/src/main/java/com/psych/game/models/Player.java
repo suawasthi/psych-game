@@ -35,7 +35,9 @@ public class Player extends User {
 	@Setter
 	private String alias;
 
-	public Game currentGame;
+	@OneToOne(cascade=CascadeType.ALL)
+	@JsonIdentityReference
+	private Game currentGame;
 
 	@URL
 	@Getter

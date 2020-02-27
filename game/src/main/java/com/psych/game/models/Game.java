@@ -19,8 +19,7 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.psych.game.util.EllenUtil;
-import com.psych.game.util.QuestionUtil;
+
 
 import Execption.InvalidGameActionExecption;
 import lombok.AllArgsConstructor;
@@ -41,8 +40,10 @@ public class Game extends BaseModel {
 		this.leader = leader;
 		this.noOfGames = round;
 		this.hasEallen = hasEllen;
-		leader.currentGame = this;
+		//leader.currentGame = this;
+		this.players = new HashSet<Player>();
 		this.players.add(leader);
+		
 	}
 
 	private static final long serialVersionUID = 1L;
@@ -116,11 +117,11 @@ public class Game extends BaseModel {
 
 	private void startNewRound() {
 		gameStatus = GameStatus.SUBMITING_ANSWER;
-		Question question = QuestionUtil.getRandomQuestion(gameMode);
+		Question question = new Question();
 		Round round = new Round(this, question, rounds.size() + 1);
 		rounds.add(round);
 		if (hasEallen) {
-			round.setEllenAnswer(EllenUtil.getRandomAnswer(question));
+			//round.setEllenAnswer(EllenUtil.getRandomAnswer(question));
 		}
 
 		rounds.add(round);
